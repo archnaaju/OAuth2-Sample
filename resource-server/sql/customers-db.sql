@@ -24,7 +24,7 @@ SET default_with_oids = false;
 -- Name: Customers; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."Customers" (
+CREATE TABLE public.customers (
     id uuid NOT NULL,
     title character varying(255),
     is_deleted boolean,
@@ -33,13 +33,13 @@ CREATE TABLE public."Customers" (
 );
 
 
-ALTER TABLE public."Customers" OWNER TO postgres;
+ALTER TABLE public.customers OWNER TO postgres;
 
 --
 -- Name: Products; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."Products" (
+CREATE TABLE public.products (
     id uuid,
     customer_id uuid,
     title character varying(255),
@@ -49,16 +49,16 @@ CREATE TABLE public."Products" (
     created_at timestamp,
     modified_at timestamp
 )
-INHERITS (public."Customers");
+INHERITS (public.customers);
 
 
-ALTER TABLE public."Products" OWNER TO postgres;
+ALTER TABLE public.products OWNER TO postgres;
 
 --
 -- Data for Name: Customers; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Customers" (id, title, is_deleted, created_at, modified_at) FROM stdin;
+COPY public.customers (id, title, is_deleted, created_at, modified_at) FROM stdin;
 \.
 
 
@@ -66,7 +66,7 @@ COPY public."Customers" (id, title, is_deleted, created_at, modified_at) FROM st
 -- Data for Name: Products; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Products" (id, title, is_deleted, created_at, modified_at, customer_id, description, price) FROM stdin;
+COPY public.products (id, title, is_deleted, created_at, modified_at, customer_id, description, price) FROM stdin;
 \.
 
 
@@ -74,7 +74,7 @@ COPY public."Products" (id, title, is_deleted, created_at, modified_at, customer
 -- Name: Customers Customers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Customers"
+ALTER TABLE ONLY public.customers
     ADD CONSTRAINT "Customers_pkey" PRIMARY KEY (id);
 
 
@@ -82,8 +82,8 @@ ALTER TABLE ONLY public."Customers"
 -- Name: Products FK_CUSTOMER_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Products"
-    ADD CONSTRAINT "FK_CUSTOMER_ID" FOREIGN KEY (customer_id) REFERENCES public."Customers"(id);
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT "FK_CUSTOMER_ID" FOREIGN KEY (customer_id) REFERENCES public.customers(id);
 
 
 --
