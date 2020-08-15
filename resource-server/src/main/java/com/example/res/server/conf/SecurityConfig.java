@@ -23,7 +23,7 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
 		.and()
 		.csrf().disable()
 	  	.authorizeRequests()
-        .anyRequest().authenticated()
+        .antMatchers("/hello").authenticated()
 	  	.and()
 	  	.httpBasic()
 	  		.realmName("CRM_REALM");
