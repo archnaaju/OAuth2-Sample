@@ -4,6 +4,7 @@ package com.example.res.server.conf;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -23,7 +24,8 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
 		.and()
 		.csrf().disable()
 	  	.authorizeRequests()
-        .antMatchers("/hello").authenticated()
+        .antMatchers(HttpMethod.PUT,"/api/v1/customers").authenticated()
+		.antMatchers(HttpMethod.DELETE,"/api/v1/customers/**").authenticated()
 	  	.and()
 	  	.httpBasic()
 	  		.realmName("CRM_REALM");

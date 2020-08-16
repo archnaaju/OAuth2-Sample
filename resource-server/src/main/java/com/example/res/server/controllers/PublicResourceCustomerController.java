@@ -22,7 +22,7 @@ public class PublicResourceCustomerController {
 	private CustomerService customerService;
 
 	@GetMapping("customers/{customerId}")
-	public HttpEntity<?> getCustomer(@PathVariable("id") Integer id) {
+	public HttpEntity<?> getCustomer(@PathVariable("id") String id) {
 		Optional<Customer> customer = customerService.getCustomerById(id);
 		if (customer.isPresent()) {
 			return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
@@ -32,7 +32,7 @@ public class PublicResourceCustomerController {
 	}
 
 	@GetMapping("customers")
-	public ResponseEntity<List<Customer>> getAllArticles() {
+	public ResponseEntity<List<Customer>> getAllCustomers() {
 		List<Customer> list = customerService.findAll();
 		return new ResponseEntity<List<Customer>>(list, HttpStatus.OK);
 	}
