@@ -1,28 +1,48 @@
 package com.example.res.server.controllers;
+
 import java.util.List;
+import java.util.Optional;
 
 import com.example.res.server.entity.Customer;
-import com.example.res.server.service.FindCustomerService;
+import com.example.res.server.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 @Controller
 @RequestMapping("api/v1")
 public class PublicResourceCustomerController {
 	@Autowired
-	private FindCustomerService findCustomerService;
+	private CustomerService customerService;
+
+	@GetMapping("customers/{customerId}")
+	public HttpEntity<?> getCustomer(@PathVariable("id") Integer id) {
+		Optional<Customer> customer = customerService.getCustomerById(id);
+		if (customer.isPresent()) {
+			return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Not found Customer with id = " + id, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	@GetMapping("customers")
 	public ResponseEntity<List<Customer>> getAllArticles() {
-		List<Customer> list = findCustomerService.findAll();
+		List<Customer> list = customerService.findAll();
 		return new ResponseEntity<List<Customer>>(list, HttpStatus.OK);
+	}
+
+	@PostMapping("customers")
+	public ResponseEntity<Void> addCustomer(@RequestBody Customer customer, UriComponentsBuilder builder) {
+		Customer customerResult = customerService.addCustomer(customer);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(builder.path("/customers/{customerId}").buildAndExpand(customerResult.getId()).toUri());
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 
 } 
