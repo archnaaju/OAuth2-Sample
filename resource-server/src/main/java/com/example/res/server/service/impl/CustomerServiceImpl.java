@@ -12,8 +12,8 @@ import java.util.*;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired()
-    CustomerRepository customerRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public List<Customer> findAllCustomers() {
