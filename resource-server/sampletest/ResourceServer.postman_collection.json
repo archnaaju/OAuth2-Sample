@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "5bbaa400-d5be-474b-8f55-e91cfe4762ce",
+		"name": "ResourceServer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"testApi\",\r\n    \"description\" : \"Aphone SE\",\r\n    \"price\" : 250,\r\n    \"isDeleted\" : false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9081/api/v1/customers/99fd2afe-b8ba-4509-9e5f-8d84187ffb68/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9081",
+					"path": [
+						"api",
+						"v1",
+						"customers",
+						"99fd2afe-b8ba-4509-9e5f-8d84187ffb68",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9081/api/v1/products/2ec85440-f602-4bc0-9173-77142d616cd2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9081",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"2ec85440-f602-4bc0-9173-77142d616cd2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "123"
+				},
+				"url": {
+					"raw": "http://localhost:9081/api/v1/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9081",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" :\"test1\",\r\n    \"isDeleted\" : false,\r\n    \"createdAt\":\"2020-08-16 09:45:12.000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9081/api/v1/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9081",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get client token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "exampleSecret",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "exampleClient",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{noop}adminpass",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "643f3b15-5084-43ef-aab5-18c60eacc58c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"2ec85440-f602-4bc0-9173-77142d616cd2\",\r\n    \"title\": \"testApi\",\r\n    \"description\": \"Aphone SE\",\r\n    \"price\": 270,\r\n    \"createdAt\": null,\r\n    \"modifiedAt\": null,\r\n    \"isDeleted\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9081/api/v1/products/5da1d3c1-1b9b-4be5-9e2a-c83acb0ed64f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9081",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"5da1d3c1-1b9b-4be5-9e2a-c83acb0ed64f"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
