@@ -24,8 +24,10 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
 		.and()
 		.csrf().disable()
 	  	.authorizeRequests()
-        .antMatchers(HttpMethod.PUT,"/api/v1/customers").authenticated()
+        .antMatchers(HttpMethod.PUT,"/api/v1/customers/**").authenticated()
 		.antMatchers(HttpMethod.DELETE,"/api/v1/customers/**").authenticated()
+		.antMatchers(HttpMethod.PUT,"/api/v1/products/**").authenticated()
+		.antMatchers(HttpMethod.DELETE,"/api/v1/products/**").authenticated()
 	  	.and()
 	  	.httpBasic()
 	  		.realmName("CRM_REALM");

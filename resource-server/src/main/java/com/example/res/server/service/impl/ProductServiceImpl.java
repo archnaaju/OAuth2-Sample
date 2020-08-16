@@ -1,5 +1,6 @@
 package com.example.res.server.service.impl;
 
+import com.example.res.server.entity.Customer;
 import com.example.res.server.entity.Product;
 import com.example.res.server.repository.ProductRepository;
 import com.example.res.server.service.ProductService;
@@ -26,5 +27,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Optional<Product> findProductById(UUID productId) {
         return productRepository.findById(productId);
+    }
+
+    @Override
+    public void updateProduct(Product product) {
+        productRepository.save(product);
+    }
+
+    @Override
+    public void deleteProduct(UUID productId) {
+        Optional<Product> productForDelete = findProductById(productId);
+        productForDelete.ifPresent(customer -> productRepository.delete(customer));
     }
 }

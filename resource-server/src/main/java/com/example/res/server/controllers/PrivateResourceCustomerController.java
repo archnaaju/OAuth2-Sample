@@ -17,14 +17,14 @@ public class PrivateResourceCustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @PutMapping("customers")
-    public ResponseEntity<Customer> updateArticle(@RequestBody Customer customer) {
+    @PutMapping("customers/{customerId}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer) {
         customerService.updateCustomer(customer);
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
     }
     @DeleteMapping("customers/{customerId}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable("id") UUID id) {
-        customerService.deleteCustomer(id);
+    public ResponseEntity<Void> deleteCustomer(@PathVariable("customerId") UUID customerId) {
+        customerService.deleteCustomer(customerId);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.res.server.service;
 
+import com.example.res.server.entity.Customer;
 import com.example.res.server.entity.Product;
 
 import java.util.List;
@@ -9,4 +10,6 @@ import java.util.UUID;
 public interface ProductService {
     List<Product> findAllProducts();
     Optional<Product> findProductById(UUID productId);
+    void updateProduct(Product product);
+    void deleteProduct(UUID productId);
 }
