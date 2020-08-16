@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 
 @Controller
 @RequestMapping("api/v1")
@@ -21,7 +23,7 @@ public class PrivateResourceCustomerController {
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
     }
     @DeleteMapping("customers/{customerId}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable("id") String id) {
+    public ResponseEntity<Void> deleteCustomer(@PathVariable("id") UUID id) {
         customerService.deleteCustomer(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }

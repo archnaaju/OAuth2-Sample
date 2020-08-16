@@ -2,6 +2,7 @@ package com.example.res.server.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.example.res.server.entity.Customer;
 import com.example.res.server.service.CustomerService;
@@ -22,8 +23,8 @@ public class PublicResourceCustomerController {
 	private CustomerService customerService;
 
 	@GetMapping("customers/{customerId}")
-	public HttpEntity<?> getCustomer(@PathVariable("id") String id) {
-		Optional<Customer> customer = customerService.getCustomerById(id);
+	public HttpEntity<?> getCustomer(@PathVariable("customerId") UUID id) {
+		Optional<Customer> customer = customerService.findCustomerById(id);
 		if (customer.isPresent()) {
 			return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
 		} else {
@@ -33,7 +34,7 @@ public class PublicResourceCustomerController {
 
 	@GetMapping("customers")
 	public ResponseEntity<List<Customer>> getAllCustomers() {
-		List<Customer> list = customerService.findAll();
+		List<Customer> list = customerService.findAllCustomers();
 		return new ResponseEntity<List<Customer>>(list, HttpStatus.OK);
 	}
 

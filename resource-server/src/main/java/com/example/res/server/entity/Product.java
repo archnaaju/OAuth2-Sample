@@ -1,21 +1,15 @@
 package com.example.res.server.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "customers")
-public class Customer implements Serializable {
+@Table(name = "products")
+public class Product {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -26,8 +20,19 @@ public class Customer implements Serializable {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Customer customer;
+
     @Column(name = "title")
     private String title;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "price")
+    private Long price;
 
     @Column(name = "is_deleted")
     private Boolean isDeleted;
@@ -38,10 +43,6 @@ public class Customer implements Serializable {
     @Column(name = "modified_at")
     private Timestamp modifiedAt;
 
-    @OneToMany( mappedBy = "customer", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Product> productList;
-
     public String getTitle() {
         return title;
     }
@@ -50,7 +51,23 @@ public class Customer implements Serializable {
         this.title = title;
     }
 
-    public Boolean isDeleted() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+    public Boolean getDeleted() {
         return isDeleted;
     }
 
@@ -73,21 +90,4 @@ public class Customer implements Serializable {
     public void setModifiedAt(Timestamp modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-    }
 }
-

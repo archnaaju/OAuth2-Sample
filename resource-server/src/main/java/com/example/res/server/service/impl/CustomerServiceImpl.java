@@ -7,10 +7,7 @@ import com.example.res.server.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -19,7 +16,7 @@ public class CustomerServiceImpl implements CustomerService {
     CustomerRepository customerRepository;
 
     @Override
-    public List<Customer> findAll() {
+    public List<Customer> findAllCustomers() {
         Iterable<Customer> customerIterable = customerRepository.findAll();
         Iterator<Customer> customerIterator = customerIterable.iterator();
         List<Customer> customerList = new ArrayList<>();
@@ -28,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<Customer> getCustomerById(String customerId) {
+    public Optional<Customer> findCustomerById(UUID customerId) {
         return customerRepository.findById(customerId);
     }
 
@@ -43,8 +40,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomer(String customerId) {
-        Optional<Customer> customerForDelete = getCustomerById(customerId);
+    public void deleteCustomer(UUID customerId) {
+        Optional<Customer> customerForDelete = findCustomerById(customerId);
         customerForDelete.ifPresent(customer -> customerRepository.delete(customer));
     }
 }
