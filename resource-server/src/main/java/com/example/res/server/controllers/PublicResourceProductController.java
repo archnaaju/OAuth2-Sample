@@ -56,9 +56,20 @@ public class PublicResourceProductController {
                 .addProductByCustomer(customerId, product);
         HttpHeaders headers = new HttpHeaders();
         productResult.ifPresent(value -> headers.setLocation(builder
-                .path("/products/{productId}")
+                .path("/api/v1/products/{productId}")
                 .buildAndExpand(value.getId()).toUri())
         );
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+    @GetMapping("products/{productId}")
+    public HttpEntity<?> getProductById(@PathVariable("productId") UUID productId) {
+        Optional<Product> product = productService.findProductById(productId);
+        if (product.isPresent()) {
+            return new ResponseEntity<Product>(product.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("Not found Product with id = " + productId,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

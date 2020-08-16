@@ -42,7 +42,7 @@ public class PublicResourceCustomerController {
 	public ResponseEntity<Void> addCustomer(@RequestBody Customer customer, UriComponentsBuilder builder) {
 		Customer customerResult = customerService.addCustomer(customer);
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(builder.path("/customers/{customerId}").buildAndExpand(customerResult.getId()).toUri());
+		headers.setLocation(builder.path("/api/v1/customers/{customerId}").buildAndExpand(customerResult.getId()).toUri());
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 
