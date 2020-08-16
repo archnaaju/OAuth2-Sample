@@ -1,13 +1,12 @@
 package com.example.res.server.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -32,9 +31,11 @@ public class Customer implements Serializable {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "created_at")
     private Timestamp createdAt;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "modified_at")
     private Timestamp modifiedAt;
 
@@ -50,12 +51,14 @@ public class Customer implements Serializable {
         this.title = title;
     }
 
-    public Boolean isDeleted() {
+    @JsonProperty("isDeleted")
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
+    @JsonProperty("isDeleted")
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     public Timestamp getCreatedAt() {

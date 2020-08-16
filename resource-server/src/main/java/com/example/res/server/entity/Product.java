@@ -1,6 +1,8 @@
 package com.example.res.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -37,11 +39,21 @@ public class Product {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "created_at")
     private Timestamp createdAt;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "modified_at")
     private Timestamp modifiedAt;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -67,11 +79,12 @@ public class Product {
         this.price = price;
     }
 
-    public Boolean getDeleted() {
+    @JsonProperty("isDeleted")
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setIsDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
 
@@ -99,11 +112,4 @@ public class Product {
         this.customer = customer;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 }
